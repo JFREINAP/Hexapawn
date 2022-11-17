@@ -1,0 +1,1380 @@
+win = False
+ronda = 1
+game_b1=["C1", "C2", "C3"]
+game_b2=[" ", " ", " "]
+game_b3=["P1", "P2", "P3"]
+movimientos=["Izquierda","Adelante","Derecha"]
+errorcode=0
+while not win:
+    peones=["P1","P2","P3","C1","C2","C3"]
+    if ronda == 0:
+        ronda = 1
+    print("Esta es la ronda: ", ronda)
+    if ronda % 2 == 0 and errorcode==0:
+        turn = "Jugador 2"
+        print("Turno del", turn)
+        option3 = input("Ingrese la ficha que desea mover (C1,C2,C3)")
+        option4 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+        errorcode=0
+
+    elif ronda % 2 != 0 and errorcode==0:
+        turn = "Jugador 1"
+        print("Turno del", turn)
+        option1 = input("Ingrese la ficha que desea mover (P1,P2,P3)")
+        option2 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayusculas")
+        errorcode=0
+    elif ronda % 2 ==0 and (errorcode==1 or errorcode==2):
+        if errorcode==2:
+            turn = "Jugador 2"
+            print("Turno del", turn)
+            print("El peon seleccionado no se encuentra disponible o no existe.")
+            option3 = input("Ingrese la ficha que desea mover (C1,C2,C3)")
+            option4 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+            errorcode = 0
+        else:
+            turn = "Jugador 2"
+            print("Turno del",turn)
+            print("La ficha",option3,"fue ingresada con una dirección inválida.")
+            option4 = input("Ingrese denuevo la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+            errorcode = 0
+    elif ronda % 2 !=0 and (errorcode==1 or errorcode==2):
+        if errorcode==2:
+            turn = "Jugador 1"
+            print("Turno del", turn)
+            print("El peon seleccionado no se encuentra disponible o no existe.")
+            option1 = input("Ingrese la ficha que desea mover (P1,P2,P3)")
+            option2 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayusculas")
+            errorcode = 0
+        else:
+            turn = "Jugador 1"
+            print("Turno del",turn)
+            print("La ficha",option1,"fue ingresada con una dirección inválida.")
+            option2 = input("Ingrese denuevo la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+            errorcode = 0
+
+
+
+    if ronda == 1:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option1 == "P1" and option2 == "Adelante":
+            game_b2 = ["P1", " ", " "]
+            game_b3 = [" ", "P2", "P3"]
+        elif option1 == "P2" and option2 == "Adelante":
+            game_b2 = [" ", "P2", " "]
+            game_b3 = ["P1", " ", "P3"]
+        elif option1 == "P3" and option2 == "Adelante":
+            game_b2 = [" ", " ", "P3"]
+            game_b3 = ["P1", "P2", " "]
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v=0
+            for i in game_b1:
+                if i!=option1:
+                    v+=1
+            for j in game_b2:
+                if j!=option1:
+                    v+=1
+            for k in game_b3:
+                if k!=option1:
+                    v+=1
+            if v==9:
+                errorcode=2
+                ronda-=1
+            else:
+                errorcode=1
+                ronda-=1
+
+
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+
+
+    if ronda == 2:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option3 == "C2" and game_b1==["C1","C2","C3"] and game_b2==["P1"," "," "] and option4=="Izquierda":
+            game_b1=["C1"," ","C3"]
+            game_b2=["C2"," "," "]
+            game_b3=[" ","P2","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == ["P1", " ", " "] and option4 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1"," ","C3"]
+            game_b3=[" ","P2","P3"]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == ["P1", " ", " "] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1","C2"," "]
+            game_b3=[" ","P2","P3"]
+        if option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["C1","P2"," "]
+            game_b3=["P1"," ","P3"]
+        elif option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Derecha":
+            game_b1=[" ","C2","C3"]
+            game_b2=[" ","C1"," "]
+            game_b3=["P1"," ","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Izquierda":
+            game_b1=["C1","C2"," "]
+            game_b2=[" ","C3"," "]
+            game_b3=["P1"," ","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=[" ","P2","C3"]
+            game_b3=["P1"," ","P3"]
+        if option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["C1"," ","P3"]
+            game_b3=["P1","P2"," "]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" ","C2","P3"]
+            game_b3=["P1","P2"," "]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Derecha":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" "," ","C2"]
+            game_b3=["P1","P2"," "]
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v = 0
+            for i in game_b1:
+                if i != option3:
+                    v += 1
+            for j in game_b2:
+                if j != option3:
+                    v += 1
+            for k in game_b3:
+                if k != option3:
+                    v += 1
+            if v == 9:
+                errorcode = 2
+                ronda -= 1
+            else:
+                errorcode = 1
+                ronda -= 1
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+    if ronda == 3:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option1 == "P1" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "C3"] and option2 == "Derecha":
+            game_b1=["C1","P1"," "]
+            game_b2=[" "," ","C3"]
+            game_b3=[" ","P2","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "C3"] and option2 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1","P2","C3"]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "C3"] and option2 == "Derecha":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1"," ","P2"]
+            game_b3=[" "," ","P3"]
+        if option1 == "P2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", " "] and option2 == "Izquierda":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P2"," "," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", " "] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["C2","P2"," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", " "] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["C2"," ","P3"]
+            game_b3=[" ","P2"," "]
+        if option1 == "P3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "C2", " "] and option2 == "Izquierda":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1","P3"," "]
+            game_b3=[" ","P2"," "]
+        elif option1 == "P3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P2", " "] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1","C2","P3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Empate! Ningun jugador ha ganado.")
+        if option1 == "P2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", " "] and option2 == "Derecha":
+            game_b1=[" ","C2","P2"]
+            game_b2=["C1"," "," "]
+            game_b3=["P1"," ","P3"]
+        elif option1 == "P3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", " "] and option2 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["C1","P2","P3"]
+            game_b3=["P1"," "," "]
+        if option1 == "P1" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", " "] and option2 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["P1","C1"," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P1" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", " "] and option2 == "Derecha":
+            game_b1=[" ","C2","C3"]
+            game_b2=[" ","P1"," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", " "] and option2 == "Izquierda":
+            game_b1=[" ","C2","C3"]
+            game_b2=[" ","P3"," "]
+            game_b3=["P1"," "," "]
+        elif option1 == "P3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", " "] and option2 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=[" ","C1","P3"]
+            game_b3=["P1"," "," "]
+        if option1 == "P1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1","C3"," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Derecha":
+            game_b1=["C1","C2"," "]
+            game_b2=[" ","P1"," "]
+            game_b3=[" "," ","P3"]
+        elif option1 == "P3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Izquierda":
+            game_b1=["C1","C2"," "]
+            game_b2=[" ","P3"," "]
+            game_b3=["P1"," "," "]
+        elif option1 == "P3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=[" ","C3","P3"]
+            game_b3=["P1"," "," "]
+        if option1 == "P2" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", "C3"] and option2 == "Izquierda":
+            game_b1=["P2","C2"," "]
+            game_b2=[" "," ","C3"]
+            game_b3=["P1"," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", "C3"] and option2 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1","P2","C3"]
+            game_b3=[" "," ","P3"]
+        if option1 == "P2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", " ", "P3"] and option2 == "Izquierda":
+            game_b1=[" ","C2","C3"]
+            game_b2=["P2"," ","P3"]
+            game_b3=["P1"," "," "]
+        elif option1 == "P2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", " ", "P3"] and option2 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["C1","P2","P3"]
+            game_b3=["P1"," "," "]
+        elif option1 == "P3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", " ", "P3"] and option2 == "Izquierda":
+            game_b1=[" ","P3","C3"]
+            game_b2=["C1"," "," "]
+            game_b3=["P1","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "C2", "P3"] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1","C2","P3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option1 == "P1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "C2", "P3"] and option2 == "Derecha":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" ","P1","P3"]
+            game_b3=[" ","P2"," "]
+        if option1 == "P2" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", " ", "C2"] and option2 == "Derecha":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" "," ","P2"]
+            game_b3=["P1"," "," "]
+        elif option1 == "P2" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", " ", "C2"] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" ","P2","C2"]
+            game_b3=["P1"," "," "]
+        elif option1 == "P1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", " ", "C2"] and option2 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1"," ","C2"]
+            game_b3=[" ","P2"," "]
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v=0
+            for i in game_b1:
+                if i!=option1:
+                    v+=1
+            for j in game_b2:
+                if j!=option1:
+                    v+=1
+            for k in game_b3:
+                if k!=option1:
+                    v+=1
+            if v==9:
+                errorcode=2
+                ronda-=1
+            else:
+                errorcode=1
+                ronda-=1
+
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+    if ronda == 4:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","C1","C3"]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","P2","C3"]
+            game_b3=[" "," ","P3"]
+        if option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2"," ","P2"]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Derecha":
+            game_b1=["C1"," "," "]
+            game_b2=["P1"," ","C2"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","C2","P2"]
+            game_b3=[" "," ","P3"]
+        if option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P2", " ", " "] and option4 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["P2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" ","P2"," "]
+            game_b3=["C2"," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","C1"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","C3"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","P2","C3"]
+            game_b3=[" "," ","P3"]
+        if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", "P3"] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" "," ","P3"]
+            game_b3=["C2","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", "P3"] and option4 == "Derecha":
+            game_b1=["C1"," ","C3"]
+            game_b2=[" "," ","P3"]
+            game_b3=[" ","C2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P2", " "] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","C3"," "]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P2", " "] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["P1","C1"," "]
+            game_b3=[" ","P2"," "]
+        elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P3", " "] and option4 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","P3","C3"]
+            game_b3=[" ","P2"," "]
+        if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["C1","P2","C2"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","C3","P3"]
+            game_b3=["P1"," "," "]
+        if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Izquierda":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","C1"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+            game_b1=[" ","C2","C3"]
+            game_b2=["P1"," "," "]
+            game_b3=[" ","C1","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Derecha":
+            game_b1=[" ","C2","C3"]
+            game_b2=["P1"," "," "]
+            game_b3=[" "," ","C1"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","C1","C3"]
+            game_b3=[" "," ","P3"]
+        if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P1", " "] and option4 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C3"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P1", " "] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","P1","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P3", " "] and option4 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C3"," "]
+            game_b3=["P1"," "," "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P3", " "] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","P3","C3"]
+            game_b3=["P1"," "," "]
+        if option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", "P3"] and option4 == "Izquierda":
+            game_b1=[" ","C2","C3"]
+            game_b2=[" "," ","P3"]
+            game_b3=["C1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", "P3"] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=[" ","C1","C2"]
+            game_b3=["P1"," "," "]
+        if option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","C3"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1"," "," "]
+            game_b3=[" ","C3","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Derecha":
+            game_b1=["C1","C2"," "]
+            game_b2=["P1"," "," "]
+            game_b3=[" "," ","C3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P1", " "] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P1"," "]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P1", " "] and option4 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C1"," "]
+            game_b3=[" "," ","P3"]
+        if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P2"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", " "] and option4 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C1"," "]
+            game_b3=["P1"," "," "]
+        if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","C3","P3"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Izquierda":
+            game_b1=["C1","C2"," "]
+            game_b2=[" "," ","P3"]
+            game_b3=["C3"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado")
+        elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+            game_b1=["C1","C2"," "]
+            game_b2=[" "," ","P3"]
+            game_b3=["P1","C3"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado")
+        elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Derecha":
+            game_b1=["C1"," "," "]
+            game_b2=[" ","C3","C2"]
+            game_b3=["P1"," "," "]
+        if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","C1","C3"]
+            game_b3=[" "," ","P3"]
+        elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","P2","C3"]
+            game_b3=[" "," ","P3"]
+        if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Izquierda":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2"," ","P3"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Adelante":
+            game_b1=[" "," ","C3"]
+            game_b2=["P2","C2","P3"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["P2"," ","C2"]
+            game_b3=["P1"," "," "]
+        if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","C3","P3"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["C1","P2","C2"]
+            game_b3=["P1"," "," "]
+        if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=[" ","C1","P3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=[" ","C3","P3"]
+            game_b3=[" ","P2"," "]
+        elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Adelante":
+            game_b1=[""," ","C3"]
+            game_b2=["C1","P1","P3"]
+            game_b3=[" ","P2"," "]
+        if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", " ", "P2"] and option4 == "Adelante":
+            game_b1=[" "," ","C3"]
+            game_b2=["C1"," ","P2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Adelante":
+            game_b1=[" "," ","C2"]
+            game_b2=["C1","P2","C3"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Derecha":
+            game_b1=[" "," ","C2"]
+            game_b2=[" ","C1","C3"]
+            game_b3=["P1"," "," "]
+        elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=[" ","C3","C2"]
+            game_b3=["P1"," "," "]
+        if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1"," "," "]
+            game_b3=[" ","P2","C2"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Izquierda":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1"," "," "]
+            game_b3=[" ","C2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Adelante":
+            game_b1=["C1"," ","C3"]
+            game_b2=["P1"," "," "]
+            game_b3=[" ","P2","C2"]
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v = 0
+            for i in game_b1:
+                if i != option3:
+                    v += 1
+            for j in game_b2:
+                if j != option3:
+                    v += 1
+            for k in game_b3:
+                if k != option3:
+                    v += 1
+            if v == 9:
+                errorcode = 2
+                ronda -= 1
+            else:
+                errorcode = 1
+                ronda -= 1
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+    if ronda==5:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Adelante":
+            game_b1=["P1","C2"," "]
+            game_b2=[" ","C1","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Derecha":
+            game_b1=[" ","P1"," "]
+            game_b2=[" ","C1","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","P3","C3"]
+            game_b3=[" "," ","P3"]
+        if option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Izquierda":
+            game_b1=["P2"," "," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Adelante":
+            game_b1=["C1","P2"," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", " ", "P2"] and option2 == "Adelante":
+            game_b1=["C1"," ","P2"]
+            game_b2=["C2"," "," "]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C2", "P2"] and option2 == "Adelante":
+            game_b1=["C1"," ","P2"]
+            game_b2=["P1","C2"," "]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C2", "P2"] and option2 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","P3","P2"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", " "] and option2 == "Izquierda":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","P3"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", " "] and option2 == "Derecho":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","C1","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", " "] and option2 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","P3"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", " "] and option2 == "Derecho":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","C3","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Izquierda":
+            game_b1=["P2"," "," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Adelante":
+            game_b1=["C1","P2"," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", " "] and option2 == "Adelante":
+            game_b1=["P1"," ","C3"]
+            game_b2=[" ","C1"," "]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "C3"] and option2 == "Adelante":
+            game_b1=["C1","P3"," "]
+            game_b2=["P1"," ","C3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "C3"] and option2 == "Derecha":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","P3","P2"]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "C3"] and option2 == "Izquierda":
+            game_b1=["P3"," "," "]
+            game_b2=["P1"," ","C3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Adelante":
+            game_b1=[" ","P2","C3"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Derecha":
+            game_b1=[" "," ","P2"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Izquierda":
+            game_b1=[" ","P3"," "]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Derecho":
+            game_b1=[" ","C2","P3"]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        if option1 == "P3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", " "] and option2 == "Izquierda":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","P3"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", " "] and option2 == "Derecho":
+            game_b1=[" "," ","C3"]
+            game_b2=["C2","C1","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Adelante":
+            game_b1=["P1","C2"," "]
+            game_b2=[" ","C1","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Derecha":
+            game_b1=[" ","P1"," "]
+            game_b2=[" ","C1","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado,")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", "C3"] and option2 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P3","C3"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and option2 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","P3"," "]
+            game_b3=[" "," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C1","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and game_b3 == ["P1", " ", " "] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","C1"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and game_b3 == ["P1", " ", " "] and option2 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","P1"," "]
+            game_b3=[" "," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "P3", "C3"] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","P3","C3"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "P3", "C3"] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","P3","C3"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "C1", "C2"] and option2 == "Adelante":
+            game_b1=[" "," ","C3"]
+            game_b2=["P1","C1","C2"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "C1", "C2"] and option2 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=[" ","P1","C2"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", " "] and option2 == "Izquierda":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","P3"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", " "] and option2 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["C2","C3","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", " "] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P1","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and option2 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","P3"," "]
+            game_b3=[" "," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", " "] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=[" ","C1","P3"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Adelante":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","C3"," "]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", " "] and option2 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=["","P1"," "]
+            game_b3=[" "," "," "]
+            win=True
+            print("Empate! Ningun jugador gana.")
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P1","P3"]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Izquierda":
+            game_b1=[" ","P3"," "]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Adelante":
+            game_b1=[" ","C2","P3"]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "C3", "C2"] and option2 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","C3","C2"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "C3", "C2"] and option2 == "Derecha":
+            game_b1=["C1"," "," "]
+            game_b2=[" ","P1","C2"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C2", "C3"] and option2 == "Adelante":
+            game_b1=["P1","C2"," "]
+            game_b2=[" ","C2","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C2", "C3"] and option2 == "Derecha":
+            game_b1=[" ","P1"," "]
+            game_b2=[" ","C2","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C2", "C3"] and option2 == "Izquierda":
+            game_b1=[" ","C2"," "]
+            game_b2=["P1","P3","C3"]
+            game_b3=[" "," "," "]
+        if option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Izquierda":
+            game_b1=["P2"," "," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P2", "C3"] and option2 == "Adelante":
+            game_b1=["C1","P2"," "]
+            game_b2=["C2"," ","C3"]
+            game_b3=[" "," ","P3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "C2", "P3"] and option2 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=["P2","P1","P3"]
+            game_b3=[" "," "," "]
+        elif option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "C2", "P3"] and option2 == "Adelante":
+            game_b1=["P2"," ","C3"]
+            game_b2=[" ","C2","P3"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", " ", "C2"] and option2 == "Adelante":
+            game_b1=["P2"," ","C3"]
+            game_b2=[" "," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Derecha":
+            game_b1=[" ","C2"," "]
+            game_b2=["C1","P1","P3"]
+            game_b3=[" "," "," "]
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Izquierda":
+            game_b1=[" ","P3"," "]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P3" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "C3", "P3"] and option2 == "Adelante":
+            game_b1=[" ","C2","P3"]
+            game_b2=["C1","C3"," "]
+            game_b3=["P1"," "," "]
+        if option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Derecha":
+            game_b1=[" "," ","P2"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Adelante":
+            game_b1=[" "," P2","C3"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P3" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "C3", "P3"] and option2 == "Adelante":
+            game_b1=["C1"," ","P3"]
+            game_b2=[" ","C3"," "]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P1", "P3"] and option2 == "Izquierda":
+            game_b1=[" "," ","C3"]
+            game_b2=["P2","P1","P3"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P1", "P3"] and option2 == "Adelante":
+            game_b1=[" ","P1","C3"]
+            game_b2=["C1"," ","P3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P1", "P3"] and option2 == "Derecha":
+            game_b1=[" "," ","P1"]
+            game_b2=["C1"," ","P3"]
+            game_b3=[" ","P2"," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Adelante":
+            game_b1=[" ","P2","C3"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option1 == "P2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C1", "P2", "C2"] and option2 == "Derecha":
+            game_b1=[" "," ","P2"]
+            game_b2=["C1"," ","C2"]
+            game_b3=["P1"," "," "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "C1", "C2"] and option2 == "Adelante":
+            game_b1=[" "," ","C3"]
+            game_b2=["P1","C1","C2"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "C1", "C2"] and option2 == "Derecha":
+            game_b1=[" "," ","C3"]
+            game_b2=[" ","P1","C2"]
+            game_b3=[" "," "," "]
+        if option1 == "P1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option2 == "Adelante":
+            game_b1=["C1"," "," "]
+            game_b2=["P1","C3","C2"]
+            game_b3=[" "," "," "]
+        elif option1 == "P1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option2 == "Derecha":
+            game_b1=["C1"," "," "]
+            game_b2=[" ","P1","C2"]
+            game_b3=[" "," "," "]
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v = 0
+            for i in game_b1:
+                if i != option1:
+                    v += 1
+            for j in game_b2:
+                if j != option1:
+                    v += 1
+            for k in game_b3:
+                if k != option1:
+                    v += 1
+            if v == 9:
+                errorcode = 2
+                ronda -= 1
+            else:
+                errorcode = 1
+                ronda -= 1
+
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+    if ronda==6:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = ["P1", "P3", " "]
+            game_b3 = [" ", " ", "C3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "P2"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["P1", "C1", "P2"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "P3", " "]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C3", " "]
+            game_b3 = [" ", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "C1", "P3"]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["C2", " ", "P3"]
+            game_b3 = [" ", "C1", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C1", " "]
+            game_b3 = [" ", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "P3", " "]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "C3", "P3"]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["C2", " ", "P3"]
+            game_b3 = [" ", "C3", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "P2"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["P1", "C1", "P2"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "P3", " "]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C3", " "]
+            game_b3 = [" ", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "C1", "P3"]
+            game_b3 = ["C2", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["C2", " ", "P3"]
+            game_b3 = [" ", "C1", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = ["P1", "P3", " "]
+            game_b3 = [" ", " ", "C3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C3", "C2"]
+            game_b3 = [" ", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" ", " ", "P3"]
+            game_b3 = [" ", "C3", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C3", " "]
+            game_b3 = [" ", " ", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = ["P1", " ", " "]
+            game_b3 = [" ", "C3", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" P1", "P3", " "]
+            game_b3 = [" ", " ", "C3"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["P1", " ", "C2"]
+            game_b3 = [" ", "C1", " "]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["P1", "C1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win=True
+            print("Felicidades",turn,"ha ganado.")
+        if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C3", "C2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "P1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C1", " "]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "P3", " "]
+            game_b3 = ["C2", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "C3", "P3"]
+            game_b3 = ["C2", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["C2", " ", "P3"]
+            game_b3 = [" ", "C3", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" ", "P1", "P3"]
+            game_b3 = ["C1", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C1", "P1", "C2"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" ", " ", "P3"]
+            game_b3 = [" ", "C1", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", "P3"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C1", "C2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", " "] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "C1", " "]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = ["P1", " ", " "]
+            game_b3 = [" ", "C1", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" ", "P1", "P3"]
+            game_b3 = ["C1", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C1", "P1", "C2"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["P1", " ", "C2"]
+            game_b3 = [" ", "C3", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["P1", "C3", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C1", "P1", "C2"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C1", "C2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "P1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C2", "P3", "C3"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = ["P1", "P3", " "]
+            game_b3 = [" ", " ", "C3"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "P1", "P3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["P2", "C3", "P3"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P2", "P3"] and option4 == "Adelante":
+            game_b1 = [" ", "C2", " "]
+            game_b2 = [" ", "P2", "P3"]
+            game_b3 = ["C1", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C1", "P2", "C2"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "P1", "P3"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["P2", "C3", "P3"]
+            game_b3 = [" ", " ", " "]
+        if option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["P1", " ", "C2"]
+            game_b3 = [" ", "C1", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = ["P1", "C1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", "C3"]
+            game_b2 = [" ", "P1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Izquierda":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C3", "C2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["P1", " ", "C2"]
+            game_b3 = [" ", "C3", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = ["P1", "C3", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Derecha":
+            game_b1 = [" ", " ", " "]
+            game_b2 = [" ", "C1", "C2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = [" ", " ", " "]
+            game_b2 = ["C1", "P1", "C2"]
+            game_b3 = [" ", " ", " "]
+        elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+            game_b1 = ["C1", " ", " "]
+            game_b2 = [" ", "P1", " "]
+            game_b3 = [" ", " ", "C2"]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v = 0
+            for i in game_b1:
+                if i != option3:
+                    v += 1
+            for j in game_b2:
+                if j != option3:
+                    v += 1
+            for k in game_b3:
+                if k != option3:
+                    v += 1
+            if v == 9:
+                errorcode = 2
+                ronda -= 1
+            else:
+                errorcode = 1
+                ronda -= 1
+
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+    if ronda == 7:
+        clon1=game_b1
+        clon2=game_b2
+        clon3=game_b3
+        if option1 == "P3" and game_b1 == [" ", " ", " "] and game_b2 == ["C2", "P3", "C3"] and option2 == "Adelante":
+            game_b1 = [" ", "P3", " "]
+            game_b2 = ["C2", " ", "C3"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if option1 == "P1" and game_b1 == [" ", " ", " "] and game_b2 == ["P1", "C1", "P2"] and option2 == "Adelante":
+            game_b1 = ["P1", " ", " "]
+            game_b2 = [" ", "C1", "P2"]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        elif option1 == "P2" and game_b1 == [" ", " ", " "] and game_b2 == ["P1", "C1", "P2"] and option2 == "Adelante":
+            game_b1 = [" ", " ", "P2"]
+            game_b2 = ["P1", "C1", " "]
+            game_b3 = [" ", " ", " "]
+            win = True
+            print("Felicidades", turn, "ha ganado.")
+        if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+            v = 0
+            for i in game_b1:
+                if i != option1:
+                    v += 1
+            for j in game_b2:
+                if j != option1:
+                    v += 1
+            for k in game_b3:
+                if k != option1:
+                    v += 1
+            if v == 9:
+                errorcode = 2
+                ronda -= 1
+            else:
+                errorcode = 1
+                ronda -= 1
+        print(game_b1)
+        print(game_b2)
+        print(game_b3)
+
+    ronda+=1
+
+
