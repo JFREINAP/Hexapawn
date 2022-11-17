@@ -1,0 +1,1752 @@
+import random
+jugador=0
+ia=0
+rondas=int(input("Para este modo de juego ingrese las rondas que desea jugar contra la IA."))
+print("Recuerde que entre mas rondas sean más dificil será ganar.")
+for init in range (0,rondas):
+    print("JUGADOR",jugador,"-",ia,"IA")
+    win=False
+    ronda = 1
+    game_b1 = ["C1", "C2", "C3"]
+    game_b2 = [" ", " ", " "]
+    game_b3 = ["P1", "P2", "P3"]
+    movimientos = ["Izquierda", "Adelante", "Derecha"]
+    errorcode = 0
+    while not win:
+        l1u=False #Esta sección no se colocó asi: (l1u,l2u,l3u...etc=False debido a un error "TypeError: cannot unpack non-iterable bool object"
+        l2u=False
+        l3u=False
+        l4u=False
+        l22u=False
+        l33u=False
+        l44u=False
+        l55u=False
+        l333u=False
+        wincode=0
+        peones=["P1","P2","P3","C1","C2","C3"]
+        if ronda == 0:
+            ronda = 1
+        print("Esta es la ronda: ", ronda)
+        if ronda % 2 == 0 and errorcode==0:
+            turn = "Jugador"
+            print("Turno del", turn)
+            option3 = input("Ingrese la ficha que desea mover (C1,C2,C3)")
+            option4 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+            errorcode=0
+
+        elif ronda % 2 != 0 and errorcode==0:
+            turn = "PC-PRO"
+            print("Turno del", turn)
+        elif ronda % 2 ==0 and (errorcode==1 or errorcode==2):
+            if errorcode==2:
+                turn = "Jugador 2"
+                print("Turno del", turn)
+                print("El peon seleccionado no se encuentra disponible o no existe.")
+                option3 = input("Ingrese la ficha que desea mover (C1,C2,C3)")
+                option4 = input("Ingrese la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+                errorcode = 0
+            else:
+                turn = "Jugador 2"
+                print("Turno del",turn)
+                print("La ficha",option3,"fue ingresada con una dirección inválida.")
+                option4 = input("Ingrese denuevo la direccion con la que desea mover esta ficha(Izquierda, Derecha, Adelante) tenga presente las mayúsculas")
+                errorcode = 0
+
+
+        if ronda == 1:
+            l1=["P1","P1","P1","P1","P1","P2","P2","P2","P2","P2","P3","P3","P3","P3","P3"]        #Lista 1
+            l1s=random.choice(l1)          #Lista Resuelta (list solved)
+            if l1s=="P1":
+                game_b2 = ["P1", " ", " "]
+                game_b3 = [" ", "P2", "P3"]
+                ruta=1
+            elif l1s=="P2":
+                game_b2 = [" ", "P2", " "]
+                game_b3 = ["P1", " ", "P3"]
+                ruta=2
+            elif l1s=="P3":
+                game_b2 = [" ", " ", "P3"]
+                game_b3 = ["P1", "P2", " "]
+                ruta=3
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+
+
+        if ronda == 2:
+            clon1=game_b1
+            clon2=game_b2
+            clon3=game_b3
+            if option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == ["P1", " ", " "] and option4 == "Adelante":
+                game_b1=["C1","C2"," "]
+                game_b2=["P1"," ","C3"]
+                game_b3=[" ","P2","P3"]
+                ruta=1
+            elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == ["P1", " ", " "] and option4 == "Izquierda":
+                game_b1 = ["C1", " ", "C3"]
+                game_b2 = ["C2", " ", " "]
+                game_b3 = [" ", "P2", "P3"]
+                ruta = 2
+            elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == ["P1", " ", " "] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1","C2"," "]
+                game_b3=[" ","P2","P3"]
+                ruta=3
+            if option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+                game_b1=[" ","C2","C3"]
+                game_b2=["C1","P2"," "]
+                game_b3=["P1"," ","P3"]
+                ruta=4
+            elif option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Derecha":
+                game_b1=[" ","C2","C3"]
+                game_b2=[" ","C1"," "]
+                game_b3=["P1"," ","P3"]
+                ruta=5
+            elif option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Izquierda":
+                game_b1=["C1","C2"," "]
+                game_b2=[" ","C3"," "]
+                game_b3=["P1"," ","P3"]
+                ruta=6
+            elif option3 == "C3" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+                game_b1=["C1","C2"," "]
+                game_b2=[" ","P2","C3"]
+                game_b3=["P1"," ","P3"]
+                ruta=7
+            if option3 == "C1" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Adelante":
+                game_b1=[" ","C2","C3"]
+                game_b2=["C1"," ","P3"]
+                game_b3=["P1","P2"," "]
+                ruta=8
+            elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=[" ","C2","P3"]
+                game_b3=["P1","P2"," "]
+                ruta=9
+            elif option3 == "C2" and game_b1 == ["C1", "C2", "C3"] and game_b2 == [" ", " ", "P3"] and option4 == "Derecha":
+                game_b1=["C1"," ","C3"]
+                game_b2=[" "," ","C2"]
+                game_b3=["P1","P2"," "]
+                ruta=10
+            if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+                v = 0
+                for i in game_b1:
+                    if i != option3:
+                        v += 1
+                for j in game_b2:
+                    if j != option3:
+                        v += 1
+                for k in game_b3:
+                    if k != option3:
+                        v += 1
+                if v == 9:
+                    errorcode = 2
+                    ronda -= 1
+                else:
+                    errorcode = 1
+                    ronda -= 1
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+        if ronda == 3:
+            l2=[1,2,3]
+            l3=[1,2]
+            l4=[1,2,3,4]
+            l2s=random.choice(l2)
+            l3s=random.choice(l3)
+            l4s=random.choice(l4)
+            if ruta==1 and l2s==1:
+                game_b1=["C1","P1"," "]
+                game_b2=[" "," ","C3"]
+                game_b3=[" ","P2","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=1
+                l2u=True
+            if ruta==1 and l2s==2:
+                game_b1=["C1","C2"," "]
+                game_b2=["P1","P2","C3"]
+                game_b3=[" "," ","P3"]
+                rute=2
+                l2u=True
+            if ruta==1 and l2s==3:
+                game_b1=["C1","C2"," "]
+                game_b2=["P1"," ","P2"]
+                game_b3=[" "," ","P3"]
+                rute=3
+                l2u=True
+            if ruta==2 and l2s==1:
+                game_b1=["C1"," ","C3"]
+                game_b2=["P2"," "," "]
+                game_b3=[" "," ","P3"]
+                rute=4
+                l2u=True
+            if ruta==2 and l2s==2:
+                game_b1=["C1"," ","C3"]
+                game_b2=["C2","P2"," "]
+                game_b3=[" "," ","P3"]
+                rute=5
+                l2u=True
+            if ruta==2 and l2s==3:
+                game_b1=["C1"," ","C3"]
+                game_b2=["C2"," ","P3"]
+                game_b3=[" ","P2"," "]
+                rute=6
+                l2u=True
+            if ruta==3 and l3s==1:
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1","P3"," "]
+                game_b3=[" ","P2"," "]
+                rute=7
+                l3u=True
+            if ruta==3 and l3s==2:
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1","C2","P3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                l3u=True
+                print("Empate! Ningun jugador gana.")
+                rute=8
+            if ruta==4 and l3s==1:
+                game_b1=[" ","C2","P2"]
+                game_b2=["C1"," "," "]
+                game_b3=["P1"," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l3u=True
+                wincode=1
+                rute=9
+            if ruta==4 and l3s==2:
+                game_b1=[" ","C2","C3"]
+                game_b2=["C1","P2","P3"]
+                game_b3=["P1"," "," "]
+                l3u=True
+                rute=10
+            if ruta==5 and l4s==1:
+                game_b1=[" ","C2","C3"]
+                game_b2=["P1","C1"," "]
+                game_b3=[" "," ","P3"]
+                l4u=True
+                rute=11
+            if ruta==5 and l4s==2:
+                game_b1=[" ","C2","C3"]
+                game_b2=[" ","P1"," "]
+                game_b3=[" "," ","P3"]
+                l4u=True
+                rute=12
+            if ruta==5 and l4s==3:
+                game_b1=[" ","C2","C3"]
+                game_b2=[" ","P3"," "]
+                game_b3=["P1"," "," "]
+                l4u=True
+                rute=13
+            if ruta==5 and l4s==4:
+                game_b1=[" ","C2","C3"]
+                game_b2=[" ","C1","P3"]
+                game_b3=["P1"," "," "]
+                l4u=True
+                rute=14
+            if ruta==6 and l4s==1:
+                game_b1=["C1","C2"," "]
+                game_b2=["P1","C3"," "]
+                game_b3=[" "," ","P3"]
+                l4u=True
+                rute=15
+            if ruta==6 and l4s==2:
+                game_b1=["C1","C2"," "]
+                game_b2=[" ","P1"," "]
+                game_b3=[" "," ","P3"]
+                l4u=True
+                rute=16
+            if ruta==6 and l4s==3:
+                game_b1=["C1","C2"," "]
+                game_b2=[" ","P3"," "]
+                game_b3=["P1"," "," "]
+                l4u=True
+                rute=17
+            if ruta==6 and l4s==4:
+                game_b1=["C1","C2"," "]
+                game_b2=[" ","C3","P3"]
+                game_b3=["P1"," "," "]
+                l4u=True
+                rute=18
+            if ruta==7 and l3s==1:
+                game_b1=["P2","C2"," "]
+                game_b2=[" "," ","C3"]
+                game_b3=["P1"," ","P3"]
+                l3u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=19
+            if ruta==7 and l3s==2:
+                game_b1=["C1","C2"," "]
+                game_b2=["P1","P2","C3"]
+                game_b3=[" "," ","P3"]
+                rute=20
+                l3u=True
+            if ruta==8 and l2s==1:
+                game_b1=[" ","C2","C3"]
+                game_b2=["P2"," ","P3"]
+                game_b3=["P1"," "," "]
+                rute=21
+                l2u=True
+            if ruta==8 and l2s==2:
+                game_b1=[" ","C2","C3"]
+                game_b2=["C1","P2","P3"]
+                game_b3=["P1"," "," "]
+                rute=22
+                l2u=True
+            if ruta==8 and l2s==3:
+                game_b1=[" ","P3","C3"]
+                game_b2=["C1"," "," "]
+                game_b3=["P1","P2"," "]
+                rute=23
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                l2u=True
+            if ruta==9 and l3s==1:
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1","C2","P3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                rute=24
+                l3u=True
+            if ruta==9 and l3s==2:
+                game_b1=["C1"," ","C3"]
+                game_b2=[" ","P1","P3"]
+                game_b3=[" ","P2"," "]
+                rute=25
+                l3u=True
+            if ruta==10 and l2s==1:
+                game_b1=["C1"," ","C3"]
+                game_b2=[" "," ","P2"]
+                game_b3=["P1"," "," "]
+                rute=26
+                l2u=True
+            if ruta==10 and l2s==2:
+                game_b1=["C1"," ","C3"]
+                game_b2=[" ","P2","C2"]
+                game_b3=["P1"," "," "]
+                rute=27
+                l2u=True
+            if ruta==10 and l2s==3:
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1"," ","C2"]
+                game_b3=[" ","P2"," "]
+                rute=28
+                l2u=True
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+        if ronda == 4:
+            clon1=game_b1
+            clon2=game_b2
+            clon3=game_b3
+            if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Derecha":
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","C1","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=1
+            elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["C2","P2","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=2
+            if option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["C2"," ","P2"]
+                game_b3=[" "," ","P3"]
+                ruta=3
+            elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Derecha":
+                game_b1=["C1"," "," "]
+                game_b2=["P1"," ","C2"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=4
+            elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", " ", "P2"] and option4 == "Adelante":
+                game_b1=["C1"," "," "]
+                game_b2=["P1","C2","P2"]
+                game_b3=[" "," ","P3"]
+                ruta=5
+            if option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P2", " ", " "] and option4 == "Adelante":
+                game_b1=["C1"," "," "]
+                game_b2=["P2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=6
+            if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=[" ","P2"," "]
+                game_b3=["C2"," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=7
+            elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","C1"," "]
+                game_b3=[" "," ","P3"]
+                ruta=8
+            elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["C2","C3"," "]
+                game_b3=[" "," ","P3"]
+                ruta=9
+            elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", "P2", " "] and option4 == "Adelante":
+                game_b1=["C1"," "," "]
+                game_b2=["C2","P2","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=10
+            if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", "P3"] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=[" "," ","P3"]
+                game_b3=["C2","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=11
+            elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["C2", " ", "P3"] and option4 == "Derecha":
+                game_b1=["C1"," ","C3"]
+                game_b2=[" "," ","P3"]
+                game_b3=[" ","C2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=12
+            if option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P2", " "] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["P1","C3"," "]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=13
+            elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P2", " "] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=["P1","C1"," "]
+                game_b3=[" ","P2"," "]
+                ruta=14
+            elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", "P3", " "] and option4 == "Adelante":
+                game_b1=["C1"," "," "]
+                game_b2=["P1","P3","C3"]
+                game_b3=[" ","P2"," "]
+                ruta=15
+            if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=["C1","P2","C2"]
+                game_b3=["P1"," "," "]
+                ruta=16
+            elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Izquierda":
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","C3","P3"]
+                game_b3=["P1"," "," "]
+                ruta=17
+            if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Izquierda":
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","C1"," "]
+                game_b3=[" "," ","P3"]
+                ruta=18
+            elif option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+                game_b1=[" ","C2","C3"]
+                game_b2=["P1"," "," "]
+                game_b3=[" ","C1","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=19
+            elif option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Derecha":
+                game_b1=[" ","C2","C3"]
+                game_b2=["P1"," "," "]
+                game_b3=[" "," ","C1"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=20
+            elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","C1","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=21
+            if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P1", " "] and option4 == "Izquierda":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C3"," "]
+                game_b3=[" "," ","P3"]
+                ruta=22
+            elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P1", " "] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","P1","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=23
+            if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P3", " "] and option4 == "Izquierda":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C3"," "]
+                game_b3=["P1"," "," "]
+                ruta=24
+            elif option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "P3", " "] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","P3","C3"]
+                game_b3=["P1"," "," "]
+                ruta=25
+            if option3 == "C1" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", "P3"] and option4 == "Izquierda":
+                game_b1=[" ","C2","C3"]
+                game_b2=[" "," ","P3"]
+                game_b3=["C1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=26
+            elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == [" ", "C1", "P3"] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=[" ","C1","C2"]
+                game_b3=["P1"," "," "]
+                ruta=27
+            if option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["C2","C3"," "]
+                game_b3=[" "," ","P3"]
+                ruta=28
+            elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Adelante":
+                game_b1=["C1","C2"," "]
+                game_b2=["P1"," "," "]
+                game_b3=[" ","C3","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=29
+            elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Derecha":
+                game_b1=["C1","C2"," "]
+                game_b2=["P1"," "," "]
+                game_b3=[" "," ","C3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=30
+            if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P1", " "] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P1"," "]
+                game_b3=[" "," ","P3"]
+                ruta=31
+            elif option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P1", " "] and option4 == "Derecha":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C1"," "]
+                game_b3=[" "," ","P3"]
+                ruta=32
+            if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", " "] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P2"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                wincode=2
+                ruta=33
+            elif option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "P2", " "] and option4 == "Derecha":
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C1"," "]
+                game_b3=["P1"," "," "]
+                ruta=34
+            if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","C3","P3"]
+                game_b3=["P1"," "," "]
+                ruta=35
+            elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Izquierda":
+                game_b1=["C1","C2"," "]
+                game_b2=[" "," ","P3"]
+                game_b3=["C3"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado")
+                wincode=2
+                ruta=36
+            elif option3 == "C3" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+                game_b1=["C1","C2"," "]
+                game_b2=[" "," ","P3"]
+                game_b3=["P1","C3"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado")
+                wincode=2
+                ruta=37
+            elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Derecha":
+                game_b1=["C1"," "," "]
+                game_b2=[" ","C3","C2"]
+                game_b3=["P1"," "," "]
+                ruta=38
+            if option3 == "C1" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Derecha":
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","C1","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=39
+            elif option3 == "C2" and game_b1 == ["C1", "C2", " "] and game_b2 == ["P1", "P2", "C3"] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=["C2","P2","C3"]
+                game_b3=[" "," ","P3"]
+                ruta=40
+            if option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Izquierda":
+                game_b1=[" "," ","C3"]
+                game_b2=["C2"," ","P3"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=41
+            elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Adelante":
+                game_b1=[" "," ","C3"]
+                game_b2=["P2","C2","P3"]
+                game_b3=["P1"," "," "]
+                ruta=42
+            elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["P2", " ", "P3"] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=["P2"," ","C2"]
+                game_b3=["P1"," "," "]
+                ruta=43
+            if option3 == "C3" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Izquierda":
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","C3","P3"]
+                game_b3=["P1"," "," "]
+                ruta=44
+            elif option3 == "C2" and game_b1 == [" ", "C2", "C3"] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=["C1","P2","C2"]
+                game_b3=["P1"," "," "]
+                ruta=45
+            if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Derecha":
+                game_b1=[" "," ","C3"]
+                game_b2=[" ","C1","P3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=46
+            elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=[" ","C3","P3"]
+                game_b3=[" ","P2"," "]
+                ruta=47
+            elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P1", "P3"] and option4 == "Adelante":
+                game_b1=[""," ","C3"]
+                game_b2=["C1","P1","P3"]
+                game_b3=[" ","P2"," "]
+                ruta=48
+            if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", " ", "P2"] and option4 == "Adelante":
+                game_b1=[" "," ","C3"]
+                game_b2=["C1"," ","P2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Empate! Ningun jugador gana.")
+                ruta=49
+            if option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Adelante":
+                game_b1=[" "," ","C2"]
+                game_b2=["C1","P2","C3"]
+                game_b3=["P1"," "," "]
+                ruta=50
+            elif option3 == "C1" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Derecha":
+                game_b1=[" "," ","C2"]
+                game_b2=[" ","C1","C3"]
+                game_b3=["P1"," "," "]
+                ruta=51
+            elif option3 == "C3" and game_b1 == ["C1", " ", "C3"] and game_b2 == [" ", "P2", "C2"] and option4 == "Izquierda":
+                game_b1=["C1"," "," "]
+                game_b2=[" ","C3","C2"]
+                game_b3=["P1"," "," "]
+                ruta=52
+            if option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1"," "," "]
+                game_b3=[" ","P2","C2"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta=53
+            elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Izquierda":
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1"," "," "]
+                game_b3=[" ","C2"," "]
+                ruta=54
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+            elif option3 == "C2" and game_b1 == ["C1", " ", "C3"] and game_b2 == ["P1", " ", "C2"] and option4 == "Adelante":
+                game_b1=["C1"," ","C3"]
+                game_b2=["P1"," "," "]
+                game_b3=[" ","P2","C2"]
+                ruta=55
+            if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+                v = 0
+                for i in game_b1:
+                    if i != option3:
+                        v += 1
+                for j in game_b2:
+                    if j != option3:
+                        v += 1
+                for k in game_b3:
+                    if k != option3:
+                        v += 1
+                if v == 9:
+                    errorcode = 2
+                    ronda -= 1
+                else:
+                    errorcode = 1
+                    ronda -= 1
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+        if ronda==5:
+            l22=[1,2,3]
+            l33=[1,2]
+            l44=[1,2,3,4]
+            l55=[1,2,3,4,5]
+            l22s=random.choice(l22)
+            l33s=random.choice(l33)
+            l44s=random.choice(l44)
+            l55s=random.choice(l55)
+            if ruta==1 and l22s==1:
+                game_b1=["P1","C2"," "]
+                game_b2=[" ","C1","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=1
+                l22u=True
+            elif ruta==1 and l22s==2:
+                game_b1=[" ","P1"," "]
+                game_b2=[" ","C1","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=2
+                l22u=True
+            elif ruta==1 and l22s==3:
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","P3","C3"]
+                game_b3=[" "," ","P3"]
+                rute=3
+                l22u=True
+            if ruta==2 and l33s==1:
+                game_b1=["P2"," "," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=4
+                l33u=True
+            elif ruta==2 and l33s==2:
+                game_b1=["C1","P2"," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=5
+                l33u=True
+            if ruta==3:
+                game_b1=["C1"," ","P2"]
+                game_b2=["C2"," "," "]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=6
+            if ruta==4 and l33s==1:
+                game_b1=["C1"," ","P2"]
+                game_b2=["P1","C2"," "]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=7
+                l33u=True
+            elif ruta==4 and l33s==2:
+                game_b1=["C1"," "," "]
+                game_b2=["P1","P3","P2"]
+                game_b3=[" "," "," "]
+                rute=8
+                l33u=True
+            if ruta==8 and l33s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","P3"," "]
+                game_b3=[" "," "," "]
+                rute=9
+                l33u=True
+            elif ruta==8 and l33s==2:
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","C1","P3"]
+                game_b3=[" "," "," "]
+                rute=10
+                l33u=True
+            if ruta==9 and l33s==1:
+                game_b1=["C1"," "," "]
+                game_b2=["C2","P3"," "]
+                game_b3=[" "," "," "]
+                rute=11
+                l33u=True
+            elif ruta==9 and l33s==2:
+                game_b1=["C1"," "," "]
+                game_b2=["C2","C3","P3"]
+                game_b3=[" "," "," "]
+                rute=12
+                l33u=True
+            if ruta==10 and l33s==1:
+                game_b1=["P2"," "," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                l33u=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=13
+            elif ruta==10 and l33s==2:
+                game_b1=["C1","P2"," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                l33u=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=14
+            if ruta==14:
+                game_b1=["P1"," ","C3"]
+                game_b2=[" ","C1"," "]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=15
+            if ruta==15 and l22s==1:
+                game_b1=["C1","P3"," "]
+                game_b2=["P1"," ","C3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=16
+                l22u=True
+            elif ruta==15 and l22s==2:
+                game_b1=["C1"," "," "]
+                game_b2=["P1","P3","P2"]
+                game_b3=[" "," "," "]
+                rute=17
+                l22u=True
+            elif ruta==15 and l22s==3:
+                game_b1=["P3"," "," "]
+                game_b2=["P1"," ","C3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=18
+                l22u=True
+            if ruta==16 and l33s==1:
+                game_b1=[" ","P2","C3"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=19
+                l33u=True
+            elif ruta==16 and l33s==2:
+                game_b1=[" "," ","P2"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=20
+                l33u=True
+            if ruta==17 and l33s==1:
+                game_b1=[" ","P3"," "]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                l33u=True
+                rute=21
+            elif ruta==17 and l33s==2:
+                game_b1=[" ","C2","P3"]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                l33u=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=22
+            if ruta==18 and l33s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","P3"," "]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=23
+            elif ruta==18 and l33s==2:
+                game_b1=[" "," ","C3"]
+                game_b2=["C2","C1","P3"]
+                game_b3=[" "," "," "]
+                rute=24
+                l33u=True
+            if ruta==21 and l22s==1:
+                game_b1=["P1","C2"," "]
+                game_b2=[" ","C1","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=25
+                l22u=True
+            elif ruta==21 and l22s==2:
+                game_b1=[" ","P1"," "]
+                game_b2=[" ","C1","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado,")
+                wincode=1
+                rute=26
+                l22u=True
+            elif ruta==21 and l22s==3:
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P3","C3"]
+                game_b3=[" "," "," "]
+                rute=27
+                l22u=True
+            if ruta==22 and l33s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","P3"," "]
+                game_b3=[" "," "," "]
+                rute=28
+                l33u=True
+                win=True
+                print("Empate! Ningun jugador gana.")
+            elif ruta==22 and l33s==2:
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C1","P3"]
+                game_b3=[" "," "," "]
+                rute=29
+                l33u=True
+            if ruta==24 and l33s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","C1"," "]
+                game_b3=[" "," "," "]
+                rute=30
+                l33u=True
+            elif ruta==24 and l33s==2:
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","P1"," "]
+                game_b3=[" "," "," "]
+                rute=31
+                win=True
+                l33u=True
+                print("Empate! Ningun jugador gana.")
+            if ruta==25:
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","P3","C3"]
+                game_b3=[" "," "," "]
+                rute=32
+            if ruta==27 and l22s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["P1","C1","C2"]
+                game_b3=[" "," "," "]
+                rute=33
+                l22u=True
+            elif ruta==27 and l22s==2:
+                game_b1=[" "," ","C3"]
+                game_b2=[" ","P1","C2"]
+                game_b3=[" "," "," "]
+                rute=34
+                l22u=True
+            if ruta==28 and l33s==1:
+                game_b1=["C1"," "," "]
+                game_b2=["C2","P3"," "]
+                game_b3=[" "," "," "]
+                rute=35
+                l33u=True
+            elif ruta==28 and l33s==2:
+                game_b1=["C1"," "," "]
+                game_b2=["C2","C3","P3"]
+                game_b3=[" "," "," "]
+                rute=36
+                l33u=True
+            if ruta==31:
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P1","P3"]
+                game_b3=[" "," "," "]
+                rute=37
+            if ruta==32 and l33s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","P3"," "]
+                game_b3=[" "," "," "]
+                rute=38
+                l33u=True
+                win=True
+                print("Empate! Ningun jugador gana.")
+            elif ruta==32 and l33s==2:
+                game_b1=[" ","C2"," "]
+                game_b2=[" ","C1","P3"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=39
+            if ruta==34 and l33s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","C3"," "]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=40
+            elif ruta==34 and l33s==2:
+                game_b1=[" ","C2"," "]
+                game_b2=["","P1"," "]
+                game_b3=[" "," "," "]
+                win=True
+                l33u=True
+                print("Empate! Ningun jugador gana.")
+                rute=41
+            if ruta==35 and l22s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P1","P3"]
+                game_b3=[" "," "," "]
+                l22u=True
+                rute=42
+            elif ruta==35 and l22s==2:
+                game_b1=[" ","P3"," "]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=43
+            elif ruta==35 and l22s==3:
+                game_b1=[" ","C2","P3"]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=44
+            if ruta==38 and l33s==1:
+                game_b1=["C1"," "," "]
+                game_b2=["P1","C3","C2"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=45
+            elif ruta==38 and l33s==2:
+                game_b1=["C1"," "," "]
+                game_b2=[" ","P1","C2"]
+                game_b3=[" "," "," "]
+                rute=46
+                l33u=True
+            if ruta==39 and l22s==1:
+                game_b1=["P1","C2"," "]
+                game_b2=[" ","C2","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=47
+            elif ruta==39 and l22s==2:
+                game_b1=[" ","P1"," "]
+                game_b2=[" ","C2","C3"]
+                game_b3=[" "," ","P3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=48
+            elif ruta==39 and l22s==3:
+                game_b1=[" ","C2"," "]
+                game_b2=["P1","P3","C3"]
+                game_b3=[" "," "," "]
+                l22u=True
+                rute=49
+            if ruta==40 and l33s==1:
+                game_b1=["P2"," "," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                l33u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=50
+            elif ruta==40 and l33s==2:
+                game_b1=["C1","P2"," "]
+                game_b2=["C2"," ","C3"]
+                game_b3=[" "," ","P3"]
+                l33u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=51
+            if ruta==42 and l33s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["P2","P1","P3"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=52
+            elif ruta==42 and l33s==2:
+                game_b1=["P2"," ","C3"]
+                game_b2=[" ","C2","P3"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l33u=True
+                wincode=1
+                rute=53
+            if ruta==43:
+                game_b1=["P2"," ","C3"]
+                game_b2=[" "," ","C2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=54
+            if ruta==44 and l22s==1:
+                game_b1=[" ","C2"," "]
+                game_b2=["C1","P1","P3"]
+                game_b3=[" "," "," "]
+                l22u=True
+                rute=55
+            elif ruta==44 and l22s==2:
+                game_b1=[" ","P3"," "]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=56
+            elif ruta==44 and l22s==3:
+                game_b1=[" ","C2","P3"]
+                game_b2=["C1","C3"," "]
+                game_b3=["P1"," "," "]
+                l22u=True
+                rute=57
+            if ruta==45 and l33s==1:
+                game_b1=[" "," ","P2"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l33u=True
+                wincode=1
+                rute=58
+            elif ruta==45 and l33s==2:
+                game_b1=[" "," P2","C3"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                l33u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=59
+            if ruta==47:
+                game_b1=["C1"," ","P3"]
+                game_b2=[" ","C3"," "]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=60
+            if ruta==48 and l22s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["P2","P1","P3"]
+                game_b3=[" "," "," "]
+                l22u=True
+                rute=61
+            elif ruta==48 and l22s==2:
+                game_b1=[" ","P1","C3"]
+                game_b2=["C1"," ","P3"]
+                game_b3=[" ","P2"," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                l22u=True
+                wincode=1
+                rute=62
+            elif ruta==48 and l22s==3:
+                game_b1=[" "," ","P1"]
+                game_b2=["C1"," ","P3"]
+                game_b3=[" ","P2"," "]
+                l22u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=63
+            if ruta==50 and l33s==1:
+                game_b1=[" ","P2","C3"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                l33u=True
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                rute=64
+            elif ruta==50 and l33s==2:
+                game_b1=[" "," ","P2"]
+                game_b2=["C1"," ","C2"]
+                game_b3=["P1"," "," "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=1
+                l33u=True
+                rute=65
+            if ruta==51 and l33s==1:
+                game_b1=[" "," ","C3"]
+                game_b2=["P1","C1","C2"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=66
+            elif ruta==51 and l33s==2:
+                game_b1=[" "," ","C3"]
+                game_b2=[" ","P1","C2"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=67
+            if ruta==52 and l33s==1:
+                game_b1=["C1"," "," "]
+                game_b2=["P1","C3","C2"]
+                game_b3=[" "," "," "]
+                rute=68
+                l33u=True
+            elif ruta==52 and l33s==2:
+                game_b1=["C1"," "," "]
+                game_b2=[" ","P1","C2"]
+                game_b3=[" "," "," "]
+                l33u=True
+                rute=69
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+            print(ruta)
+        if ronda==6:
+            clon1=game_b1
+            clon2=game_b2
+            clon3=game_b3
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta=1
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = ["P1", "P3", " "]
+                game_b3 = [" ", " ", "C3"]
+                win=True
+                ruta = 2
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "P2"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["P1", "C1", "P2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 3
+            if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "P3", " "]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 4
+            elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C3", " "]
+                game_b3 = [" ", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 5
+            elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 6
+            if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "C1", "P3"]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 7
+            elif option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["C2", " ", "P3"]
+                game_b3 = [" ", "C1", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 8
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C1", " "]
+                game_b3 = [" ", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 9
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "P3", " "]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 10
+            if option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "C3", "P3"]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 11
+            elif option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["C2", " ", "P3"]
+                game_b3 = [" ", "C3", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 12
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "P3", "P2"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["P1", "C1", "P2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 13
+            if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "P3", " "]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 14
+            elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C3", " "]
+                game_b3 = [" ", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 15
+            elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 16
+            if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "C1", "P3"]
+                game_b3 = ["C2", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 17
+            elif option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["C2", "C1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["C2", " ", "P3"]
+                game_b3 = [" ", "C1", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 18
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 19
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = ["P1", "P3", " "]
+                game_b3 = [" ", " ", "C3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 20
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C3", "C2"]
+                game_b3 = [" ", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                ruta = 21
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C3", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" ", " ", "P3"]
+                game_b3 = [" ", "C3", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 22
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C3", " "]
+                game_b3 = [" ", " ", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 23
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C3", " "] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = ["P1", " ", " "]
+                game_b3 = [" ", "C3", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 24
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 25
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" P1", "P3", " "]
+                game_b3 = [" ", " ", "C3"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 26
+            if option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["P1", " ", "C2"]
+                game_b3 = [" ", "C1", " "]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 27
+            elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["P1", "C1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win=True
+                print("Felicidades",turn,"ha ganado.")
+                wincode=2
+                ruta = 28
+            if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C3", "C2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 29
+            elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "P1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 30
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C1", " "]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 31
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "P3", " "] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "P3", " "]
+                game_b3 = ["C2", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 32
+            if option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "C3", "P3"]
+                game_b3 = ["C2", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 33
+            elif option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["C2", "C3", "P3"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["C2", " ", "P3"]
+                game_b3 = [" ", "C3", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 34
+            if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" ", "P1", "P3"]
+                game_b3 = ["C1", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 35
+            elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C1", "P1", "C2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 36
+            if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" ", " ", "P3"]
+                game_b3 = [" ", "C1", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 37
+            elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == [" ", "C1", "P3"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C1", "C2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 38
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", " "] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "C1", " "]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 39
+            elif option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "C1", " "] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = ["P1", " ", " "]
+                game_b3 = [" ", "C1", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 40
+            if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" ", "P1", "P3"]
+                game_b3 = ["C1", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 41
+            elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P1", "P3"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C1", "P1", "C2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 42
+            if option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["P1", " ", "C2"]
+                game_b3 = [" ", "C3", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 43
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["P1", "C3", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 44
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C1", "P1", "C2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 45
+            elif option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C1", "C2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 46
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "P1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 47
+            if option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C2", "P3", "C3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 48
+            elif option3 == "C3" and game_b1 == [" ", "C2", " "] and game_b2 == ["P1", "P3", "C3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = ["P1", "P3", " "]
+                game_b3 = [" ", " ", "C3"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 49
+            if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "P1", "P3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["P2", "C3", "P3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 50
+            if option3 == "C1" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P2", "P3"] and option4 == "Adelante":
+                game_b1 = [" ", "C2", " "]
+                game_b2 = [" ", "P2", "P3"]
+                game_b3 = ["C1", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 51
+            elif option3 == "C2" and game_b1 == [" ", "C2", " "] and game_b2 == ["C1", "P2", "P3"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C1", "P2", "C2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 52
+            if option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P2", "P1", "P3"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["P2", "C3", "P3"]
+                game_b3 = [" ", " ", " "]
+                ruta = 53
+            if option3 == "C1" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["P1", " ", "C2"]
+                game_b3 = [" ", "C1", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 54
+            elif option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == ["P1", "C1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = ["P1", "C1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 55
+            if option3 == "C2" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", "C3"]
+                game_b2 = [" ", "P1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 56
+            elif option3 == "C3" and game_b1 == [" ", " ", "C3"] and game_b2 == [" ", "P1", "C2"] and option4 == "Izquierda":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C3", "C2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 57
+            if option3 == "C3" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["P1", " ", "C2"]
+                game_b3 = [" ", "C3", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 58
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == ["P1", "C3", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = ["P1", "C3", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 59
+            if option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Derecha":
+                game_b1 = [" ", " ", " "]
+                game_b2 = [" ", "C1", "C2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 60
+            elif option3 == "C1" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = [" ", " ", " "]
+                game_b2 = ["C1", "P1", "C2"]
+                game_b3 = [" ", " ", " "]
+                ruta = 61
+            elif option3 == "C2" and game_b1 == ["C1", " ", " "] and game_b2 == [" ", "P1", "C2"] and option4 == "Adelante":
+                game_b1 = ["C1", " ", " "]
+                game_b2 = [" ", "P1", " "]
+                game_b3 = [" ", " ", "C2"]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=2
+                ruta = 62
+            if clon1 == game_b1 and clon2 == game_b2 and clon3 == game_b3:
+                v = 0
+                for i in game_b1:
+                    if i != option3:
+                        v += 1
+                for j in game_b2:
+                    if j != option3:
+                        v += 1
+                for k in game_b3:
+                    if k != option3:
+                        v += 1
+                if v == 9:
+                    errorcode = 2
+                    ronda -= 1
+                else:
+                    errorcode = 1
+                    ronda -= 1
+
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+        if ronda == 7:
+            l333=[1,2]
+            l333s=random.choice(l333)
+            clon1=game_b1
+            clon2=game_b2
+            clon3=game_b3
+            if ruta==1 or ruta==6 or ruta==16 or ruta==19 or ruta==36 or ruta==42 or ruta==45 or ruta==46 or ruta==52 or ruta==61:
+                game_b1 = [" ", "P3", " "]
+                game_b2 = ["C2", " ", "C3"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=1
+            if (ruta==3 or ruta==13 or ruta==50 or ruta==53) and l333s==1:
+                game_b1 = ["P1", " ", " "]
+                game_b2 = [" ", "C1", "P2"]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=1
+            elif (ruta==3 or ruta==13 or ruta==50 or ruta==53) and l333s==2:
+                game_b1 = [" ", " ", "P2"]
+                game_b2 = ["P1", "C1", " "]
+                game_b3 = [" ", " ", " "]
+                win = True
+                print("Felicidades", turn, "ha ganado.")
+                wincode=1
+
+            print(game_b1)
+            print(game_b2)
+            print(game_b3)
+        if wincode==1:
+            l1.append(l1s)
+            l333.append(l333s)
+            if l2u==True:
+                l2.append(l2s)
+            if l3u==True:
+                l3.append(l3s)
+            if l4u==True:
+                l4.append(l4s)
+            if l22u==True:
+                l22.append(l22s)
+            if l33u==True:
+                l33.append(l33s)
+            if l44u==True:
+                l44.append(l44s)
+            if l55u==True:
+                l55.append(l55s)
+        ronda+=1
+        if wincode==1:
+            ia+=1
+        elif wincode==2:
+            jugador+=1
+
